@@ -3,7 +3,11 @@ import { md5 } from "js-md5";
 import { Product } from "./interfaceProduct";
 import { removeDuplicates } from "./removeDuplicates";
 
-const API_URL = "http://api.valantis.store:40000/";
+// const API_URL = "http://api.valantis.store:40000/";
+const API_URL =
+  window.location.protocol === "https:"
+    ? "https://api.valantis.store:40000/"
+    : "http://api.valantis.store:40000/";
 const PASSWORD = "Valantis";
 
 export const fetchData = async (page: number): Promise<Product[]> => {
