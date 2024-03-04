@@ -17,6 +17,7 @@ export const fetchData = async (page: number): Promise<Product[]> => {
 
   const headers = {
     "X-Auth": authToken,
+    "Content-Type": "application/json",
   };
 
   try {
