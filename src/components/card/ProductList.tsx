@@ -1,18 +1,19 @@
 import { CardList } from "../card/CardList";
-import { Product } from "../interfaceProduct";
+import { Product } from "../types/interfaceProduct";
 import { BasicPagination } from "../pagination/BasicPagination";
 import { useState } from "react";
+import styles from "./card.module.css";
 
 interface ProductListProps {
   products: Product[];
   valueSearch: string;
 }
+const ITEMS_PER_PAGE = 50;
 
 export const ProductList = ({ products, valueSearch }: ProductListProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 50;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
 
   const filteredProducts = products.filter((product) => {
     const productName = product.product.toLowerCase();
@@ -39,14 +40,7 @@ export const ProductList = ({ products, valueSearch }: ProductListProps) => {
   return (
     <div>
       <CardList products={slicedProducts} />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "100px",
-          marginBottom: "100px",
-        }}
-      >
+      <div className={styles.basicPagination}>
         <BasicPagination
           currentPage={currentPage}
           changePage={handlePageChange}

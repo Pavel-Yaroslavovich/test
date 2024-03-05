@@ -1,7 +1,6 @@
 import { Card } from "./Card";
-import { nanoid } from "nanoid";
 import styles from "./card.module.css";
-import { Product } from "../interfaceProduct";
+import { Product } from "../types/interfaceProduct";
 
 interface ProductListProps {
   products: Product[];
@@ -12,7 +11,7 @@ export const CardList = ({ products }: ProductListProps) => {
     <div className={styles.cardList}>
       {products.map((product) => (
         <Card
-          key={nanoid()}
+          key={product.id}
           brand={product.brand}
           id={product.id}
           price={product.price}

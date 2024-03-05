@@ -1,19 +1,19 @@
-import axios from "axios";
-import { md5 } from "js-md5";
-import { Product } from "./interfaceProduct";
-import { removeDuplicates } from "./removeDuplicates";
+import axios, { AxiosRequestConfig } from "axios";
 
-const API_URL = "https://api.valantis.store:40000/";
-// const API_URL =
-//   window.location.protocol === "https:"
-// ? "https://api.valantis.store:40000/"
-//     : "http://api.valantis.store:40000/";
-const PASSWORD = "Valantis";
+import { Product } from "./types/interfaceProduct";
+import { removeDuplicates } from "./hooks/removeDuplicates";
+import { getToken } from "./helpers/getToken";
+
+const API_URL =
+  window.location.protocol === "https:"
+    ? "https://api.valantis.store:40000/"
+    : "http://api.valantis.store:40000/";
+
+const MAX_RETRY_COUNT = 3;
 
 export const fetchData = async (page: number): Promise<Product[]> => {
   const timestamp = new Date().toISOString().slice(0, 10).replace(/-/g, "");
-  const authString = `${PASSWORD}_${timestamp}`;
-  const authToken = md5(authString);
+  const authToken = getToken(timestamp);
 
   const headers = {
     "X-Auth": authToken,
@@ -46,8 +46,17 @@ export const fetchData = async (page: number): Promise<Product[]> => {
     const items = itemsResponse.data.result;
 
     return removeDuplicates(items);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
-    return fetchData(page);
+    if (axios.isAxiosError(error) && error.response) {
+      const config = error.config as AxiosRequestConfig & {
+        retryCount?: number;
+      };
+      config.retryCount = (config.retryCount || 0) + 1;
+      if (config.retryCount <= MAX_RETRY_COUNT) {
+        return fetchData(page);
+      }
+    }
+    throw error;
   }
 };

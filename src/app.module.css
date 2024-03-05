@@ -2,3 +2,7 @@ body {
   font-family: "Roboto", sans-serif, Arial, Helvetica;
   box-sizing: border-box;
 }
+.search {
+  width: 760px;
+  margin: 0 auto;
+}

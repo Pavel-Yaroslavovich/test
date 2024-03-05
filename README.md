@@ -1,1 +1,1 @@
-### В проекте используются технологии: react, axios, js-md5, nanoid, typeScript, material UI.
+### В проекте используются технологии: react, axios, js-md5, typeScript, material UI.

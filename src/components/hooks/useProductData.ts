@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { fetchData } from "./fetchData";
-import { Product } from "./interfaceProduct";
+import { fetchData } from "../fetchData";
+import { Product } from "../types/interfaceProduct";
 
 export const useProductData = () => {
   const [isLoading, setIsLoading] = useState<Boolean>(true);

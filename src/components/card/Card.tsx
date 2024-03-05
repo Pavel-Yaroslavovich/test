@@ -1,5 +1,5 @@
 import styles from "./card.module.css";
-import { Product } from "../interfaceProduct";
+import { Product } from "../types/interfaceProduct";
 
 export const Card = ({ id, product, price, brand }: Product) => {
   return (
