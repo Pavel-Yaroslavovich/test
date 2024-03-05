@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./app.module.css";
 import { useProductData } from "./components/hooks/useProductData";
-// import { ProductSearch } from "./components/productSearch/ProductSearch";
 import { Spinners } from "./components/spinners/Spinners";
 import { ProductList } from "./components/card/ProductList";
 import { fetchData } from "./components/fetchData";

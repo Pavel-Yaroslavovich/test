@@ -5,7 +5,6 @@ interface BasicPaginationProps {
   changePage: (page: number) => void;
 }
 
-// eslint-disable-next-line no-lone-blocks
 export function BasicPagination({
   currentPage,
   changePage,
