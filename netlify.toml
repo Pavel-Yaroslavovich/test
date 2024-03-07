@@ -1,6 +1,6 @@
    [build]
+     command = "npm install && npm run build"
      publish = ".next"
-     command = "npm run build"
      environment = { NETLIFY_NEXT_PLUGIN_SKIP = "true" }
 
 [[plugins]]
