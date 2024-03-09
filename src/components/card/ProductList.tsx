@@ -1,21 +1,39 @@
 import { CardList } from "../card/CardList";
-import { Product } from "../types/interfaceProduct";
+import { Product } from "../../types/interfaceProduct";
 import { BasicPagination } from "../pagination/BasicPagination";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchData } from "../fetchData";
+import { Spinners } from "../spinners/Spinners";
 import styles from "./card.module.css";
 
 interface ProductListProps {
-  products: Product[];
   valueSearch: string;
 }
-const ITEMS_PER_PAGE = 50;
 
-export const ProductList = ({ products, valueSearch }: ProductListProps) => {
+export const ProductList = ({ valueSearch }: ProductListProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
-  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const [newProducts, setNewProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const filteredProducts = products.filter((product) => {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setIsLoading(true);
+        const data = await fetchData(currentPage);
+        setNewProducts(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [currentPage]);
+
+  console.log(newProducts);
+
+  const filteredProducts = newProducts.filter((product) => {
     const productName = product.product.toLowerCase();
     const productBrand = product.brand?.toLowerCase();
     const productPrice = product.price.toString();
@@ -28,24 +46,25 @@ export const ProductList = ({ products, valueSearch }: ProductListProps) => {
     );
   });
 
-  const slicedProducts: Product[] = filteredProducts.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
   return (
     <div>
-      <CardList products={slicedProducts} />
-      <div className={styles.basicPagination}>
-        <BasicPagination
-          currentPage={currentPage}
-          changePage={handlePageChange}
-        />
-      </div>
+      {isLoading ? (
+        <Spinners isLoadingSpinners={isLoading} />
+      ) : (
+        <div>
+          <CardList products={filteredProducts} />
+          <div className={styles.basicPagination}>
+            <BasicPagination
+              currentPage={currentPage}
+              changePage={handlePageChange}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

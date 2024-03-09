@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchData } from "../fetchData";
+import { fetchData } from "../components/fetchData";
 import { Product } from "../types/interfaceProduct";
 
 export const useProductData = () => {
