@@ -3,5 +3,7 @@
   	 publish = "build/"
 
 	[[redirects]]
-  	from = "https://api.valantis.store:40000/"
+  	from = "/api/*"
   	to = "http://api.valantis.store:40000/"
+		force = true
+	
