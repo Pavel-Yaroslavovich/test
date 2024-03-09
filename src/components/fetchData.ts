@@ -4,7 +4,7 @@ import { Product } from "./types/interfaceProduct";
 import { removeDuplicates } from "./hooks/removeDuplicates";
 import { getToken } from "./helpers/getToken";
 
-const API_URL = "http://api.valantis.store:40000/";
+const API_URL = "https://api.valantis.store:40000/";
 
 // const API_URL =
 //   window.location.protocol === "https:"
