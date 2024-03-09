@@ -4,10 +4,12 @@ import { Product } from "./types/interfaceProduct";
 import { removeDuplicates } from "./hooks/removeDuplicates";
 import { getToken } from "./helpers/getToken";
 
-const API_URL =
-  window.location.protocol === "https:"
-    ? "https://api.valantis.store:40000/"
-    : "http://api.valantis.store:40000/";
+const API_URL = "http://api.valantis.store:40000/";
+
+// const API_URL =
+//   window.location.protocol === "https:"
+//     ? "https://api.valantis.store:40000/"
+//     : "http://api.valantis.store:40000/";
 
 const MAX_RETRY_COUNT = 3;
 
@@ -46,7 +48,7 @@ export const fetchData = async (page: number): Promise<Product[]> => {
     const items = itemsResponse.data.result;
 
     return removeDuplicates(items);
-  } catch (error: any) {
+  } catch (error) {
     console.error(error);
     if (axios.isAxiosError(error) && error.response) {
       const config = error.config as AxiosRequestConfig & {
