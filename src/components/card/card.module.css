@@ -8,13 +8,6 @@
   margin: 0 auto;
 }
 
-.basicPagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
-}
-
 .card {
   width: 300px;
   height: 350px;

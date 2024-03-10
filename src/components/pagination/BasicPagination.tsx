@@ -1,4 +1,5 @@
 import { Pagination } from "@mui/material";
+import styles from "./pagination.module.css";
 
 interface BasicPaginationProps {
   currentPage: number;
@@ -10,14 +11,14 @@ export function BasicPagination({
   changePage,
 }: BasicPaginationProps) {
   return (
-    <>
+    <div className={styles.basicPagination}>
       <Pagination
-        count={50}
+        count={160}
         page={currentPage}
         onChange={(_, page) => changePage(page)}
         showFirstButton
         showLastButton
       />
-    </>
+    </div>
   );
 }
