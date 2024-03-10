@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-import { Product } from "../types/interfaceProduct";
-import { removeDuplicates } from "../hooks/removeDuplicates";
+import { Product } from "../types";
+import { removeDuplicates } from "../helpers/removeDuplicates";
 import { getToken } from "../helpers/getToken";
 
 const API_URL = "http://api.valantis.store:40000/";

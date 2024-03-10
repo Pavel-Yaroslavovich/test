@@ -1,4 +1,4 @@
-import { Product } from "../types/index";
+import { Product } from "../types";
 
 export const removeDuplicates = (products: Product[]): Product[] => {
   const uniqueProducts: Product[] = [];

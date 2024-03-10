@@ -1,24 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./app.module.css";
-import { ProductList } from "./components/card/ProductList";
-import { fetchData } from "./components/fetchData";
+import { ProductList } from "./components/productList/ProductList";
 import { TextField } from "@mui/material";
 
 export const App = () => {
   const [valueSearch, setValueSearch] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        await fetchData(currentPage);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getData();
-  }, [setCurrentPage, currentPage]);
 
   return (
     <div className={styles.app}>

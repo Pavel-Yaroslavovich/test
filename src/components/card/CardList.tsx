@@ -1,6 +1,6 @@
 import { Card } from "./Card";
 import styles from "./card.module.css";
-import { Product } from "../../types/interfaceProduct";
+import { Product } from "../../types";
 
 interface ProductListProps {
   products: Product[];

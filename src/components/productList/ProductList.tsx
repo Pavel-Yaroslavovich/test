@@ -1,19 +1,18 @@
 import { CardList } from "../card/CardList";
-import { Product } from "../../types/interfaceProduct";
+import { Product } from "../../types";
 import { BasicPagination } from "../pagination/BasicPagination";
 import { useState, useEffect } from "react";
 import { fetchData } from "../fetchData";
 import { Spinners } from "../spinners/Spinners";
-import styles from "./card.module.css";
 
 interface ProductListProps {
   valueSearch: string;
 }
 
 export const ProductList = ({ valueSearch }: ProductListProps) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [newProducts, setNewProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -21,17 +20,15 @@ export const ProductList = ({ valueSearch }: ProductListProps) => {
         setIsLoading(true);
         const data = await fetchData(currentPage);
         setNewProducts(data);
-        setIsLoading(false);
       } catch (error) {
         console.log(error);
+      } finally {
         setIsLoading(false);
       }
     };
 
     fetchProducts();
   }, [currentPage]);
-
-  console.log(newProducts);
 
   const filteredProducts = newProducts.filter((product) => {
     const productName = product.product.toLowerCase();
@@ -46,23 +43,17 @@ export const ProductList = ({ valueSearch }: ProductListProps) => {
     );
   });
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
   return (
     <div>
       {isLoading ? (
-        <Spinners isLoadingSpinners={isLoading} />
+        <Spinners />
       ) : (
         <div>
           <CardList products={filteredProducts} />
-          <div className={styles.basicPagination}>
-            <BasicPagination
-              currentPage={currentPage}
-              changePage={handlePageChange}
-            />
-          </div>
+          <BasicPagination
+            currentPage={currentPage}
+            changePage={(page: number) => setCurrentPage(page)}
+          />
         </div>
       )}
     </div>
